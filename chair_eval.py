@@ -159,9 +159,7 @@ with open("dataset/train/image_2000.jsonl", "r", encoding="utf-8") as f:
         target_dict[data["image_id"]]=data["caption"]
 
 
-
-
-base_dir  = "./log/chair/nullu/" +args.model
+base_dir  = "./log/chair/" +args.model
 edit_dir = "./log/edit/" + args.model
 output_dir = "./dataset/test/"
 
@@ -178,57 +176,9 @@ attn_value = []
 
 import matplotlib.cm as cm
 
-
-################AMBER Begin#####################
-with open('/home/hjy/work/AMBER/data/query/query_all.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
-for id in tqdm(range(len(data))):
-
-    id = id + 1004
-    image_path = "/home/hjy/work/AMBER/data/image/" + data[id]["image"]
-    raw_image = Image.open(image_path).convert("RGB")
-    image = vis_processors["eval"](raw_image).unsqueeze(0)
-    image_cd = add_diffusion_noise(image, 500).to(device)
-
-    qu_norm = data[id]["query"]
-    template = INSTRUCTION_TEMPLATE[args.model]
-    qu_norm = template.replace("<question>", qu_norm)
-
-    with torch.inference_mode():
-        with torch.no_grad():
-            image = norm(image).to(device)
-            attn_square,output = model.generate(
-                {"image": image, "prompt": qu_norm},
-                use_nucleus_sampling=args.sample,
-                num_beams=args.beam,
-                max_new_tokens=512,
-                output_attentions=True,
-                opera_decoding=True,
-                scale_factor=args.scale_factor,
-                threshold=args.threshold,
-                num_attn_candidates=args.num_attn_candidates,
-                penalty_weights=args.penalty_weights,
-                generate=True, #查看注意力是否发生变化
-                images_cd = image_cd,
-                # prompt_learn = True, # 是否加入prompt learning的向量
-                # prompt_vec = soft_prompt,
-            )
-    
-    img_save = {}
-    img_save["id"] = data[id]["id"]
-    img_save["response"] = output[0]
-    with open(os.path.join("/home/hjy/work/AMBER/output", 'opera_yesorno.json'), "a") as f:
-        # json.dump(img_save, f)
-        f.write(',\n')
-        json.dump(img_save, f, ensure_ascii=False, indent=4)
-exit()
-# python chair_eval.py --model llava-1.5 --data_path ../halle/playground/data/coco/val2017/ --gpu-id 3 --beam 2 --scale_factor 50 --threshold 15 --num_attn_candidates 5 --penalty_weights 1
-################AMBER End#######################
-
-
 idx = 0
 # all_data = []
-for img_id in tqdm(range(4000,4500)): # range(4000,4500) id_list[:1500]
+for img_id in tqdm(id_list[:1500]): # range(4000,4500) id_list[:1500]
     # qu_image = "Please describe this image in detail based on the specific, visible information. Focus on concrete elements such as colors, shapes, objects, positions, textures, and expressionss."
     qu_image = "Please describe this image in detail based on the specific, visible information and avoid any imagination which is not in the image."
     qu_halle_1 = "Please describe this image in detail based on extensive internal knowledge and understanding of patterns, reasonable speculation like relationship about the scene or the existence and attribute of objects is allowed, and no need to mention the blurriness of the image."
