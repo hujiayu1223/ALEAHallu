@@ -1,0 +1,1 @@
+print("Halle Editor v1.0")
