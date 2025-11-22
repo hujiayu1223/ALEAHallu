@@ -34,6 +34,8 @@ import matplotlib as mpl
 import seaborn
 import json
 import torch.distributed as dist
+# test
+# python chair_eval.py --model llava-1.5 --data_path ../halle/playground/data/coco/val2017/ --gpu-id 3 --beam 2 --scale_factor 50 --threshold 15 --num_attn_candidates 5 --penalty_weights 1
 
 MODEL_EVAL_CONFIG_PATH = {
     "minigpt4": "eval_configs/minigpt4_eval.yaml",
@@ -63,10 +65,6 @@ def setup_seeds(config):
     cudnn.benchmark = False
     cudnn.deterministic = True
 
-
-
-
-
 parser = argparse.ArgumentParser(description="POPE-Adv evaluation on LVLMs.")
 parser.add_argument("--model", type=str, help="model")
 parser.add_argument("--gpu-id", type=int, help="specify the gpu to load the model.")
@@ -90,7 +88,6 @@ parser.add_argument("--penalty_weights", type=float, default=1.0)
 parser.add_argument("--prompt_t", type=int, default=0)
 parser.add_argument("--results_save_dir", type=str, default="./edited_model", help="model save path")
 args = parser.parse_known_args()[0]
-
 
 
 
@@ -246,8 +243,5 @@ save_path = f'{args.results_save_dir}/llava_next_model'
 edited_model.save_pretrained(save_path)
 print(f"edited model is saved in {save_path}")
 exit()
-# test
-# python chair_eval.py --model llava-1.5 --data_path ../halle/playground/data/coco/val2017/ --gpu-id 3 --beam 2 --scale_factor 50 --threshold 15 --num_attn_candidates 5 --penalty_weights 1
-
 
 
