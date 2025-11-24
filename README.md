@@ -2,6 +2,8 @@
 # ALEAHallu
 This repository is the official implementation of ALEAHallu, the method proposed in paper "Look Closer! An Adversarial Parametric Editing Framework for Hallucination Mitigation in VLMs".
 
+Accepted by AAAI'25
+
 ## Requirements
 
 ```
