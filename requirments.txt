@@ -1,0 +1,12 @@
+# conda environments:
+#
+dassl                    /home/hjy/.conda/envs/dassl
+general                  /home/hjy/.conda/envs/general
+iti                      /home/hjy/.conda/envs/iti
+nullu                    /home/hjy/.conda/envs/nullu
+opera                 *  /home/hjy/.conda/envs/opera
+opera-comp               /home/hjy/.conda/envs/opera-comp
+vcd                      /home/hjy/.conda/envs/vcd
+visionthink              /home/hjy/.conda/envs/visionthink
+base                     /opt/software/anaconda3
+
