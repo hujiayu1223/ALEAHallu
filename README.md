@@ -1,4 +1,16 @@
 
+# ALEAHallu
+This repository is the official implementation of ALEAHallu, the method proposed in paper "Look Closer! An Adversarial Parametric Editing Framework for Hallucination Mitigation in VLMs".
+
+## Requirements
+python=3.7
+
+```
+conda create -n aleahallu python=3.7
+conda activate aleahallu
+conda install pytorch==1.8.0 cudatoolkit=11.1 -c pytorch -c conda-forge
+pip install -r requirements.txt
+```
 
 ## Model details
 
